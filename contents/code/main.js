@@ -80,7 +80,7 @@ var Parameters =
   },
   minSpaces: Algorithm.createMinSpaces(readConfig('minSpaceNames', 'texstudio, inkscape, krita, gimp, designer, creator, kdenlive, kdevelop, chromium, kate, spotify').toString(), readConfig('minSpaceValues', '1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2').toString()),
   ignored: {
-    names: Algorithm.trimSplitString('ksmserver, krunner, lattedock, Plasma, plasma, plasma-desktop, plasmashell, plugin-container, '.concat(readConfig('ignoredNames', 'wine, yakuake').toString())),
+    names: Algorithm.trimSplitString('ksmserver, krunner, latte-dock, Plasma, plasma, plasma-desktop, plasmashell, plugin-container, '.concat(readConfig('ignoredNames', 'wine, yakuake').toString())),
     captions: Algorithm.trimSplitString(readConfig('ignoredCaptions', 'Trace Bitmap (Shift+Alt+B), Document Properties (Shift+Ctrl+D)').toString())
   }
 };
@@ -681,7 +681,7 @@ var Client =
   },
   ignored: function(client)
   {
-    if (client.specialWindow || client.dialog || Parameters.ignored.captions.indexOf(client.caption.toString()) !== -1)
+    if (!client.normalWindow || Parameters.ignored.captions.indexOf(client.caption.toString()) !== -1)
       return true;
     for (var i = 0; i < Parameters.ignored.names.length; i++)
     {
